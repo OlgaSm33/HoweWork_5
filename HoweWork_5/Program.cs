@@ -11,20 +11,21 @@ namespace HoweWork_5
         }
 
         static (string FirstName, string LastName, int Age, string[] PetsName, string[] FavColors) GetUser()
+            // функция ввода параметров пользователя
         {
             var User = (FirstName: "", LastName: "",
             Age: 0, PetsName: new string[0], FavColors: new string[0]);
 
             Console.Write("Введите Ваше имя: ");
-            User.FirstName = Console.ReadLine();
+            User.FirstName = CheckString();
             Console.Write("Введите Вашу фамилию: ");
-            User.LastName = Console.ReadLine();
+            User.LastName = CheckString();
             Console.Write("Введите Ваш возраст: ");
             User.Age = CheckNumber();
             Console.Write("Есть ли у Вас домашние питомцы? (Да или Нет): ");
             bool HasPet;
             int PetCount;
-            if (Console.ReadLine() == "Да")
+            if (CheckString() == "Да")
             {                 
                 Console.WriteLine("Введите количество Ваших питомцев");
                 PetCount = CheckNumber();
@@ -39,37 +40,49 @@ namespace HoweWork_5
         }
 
 
-        static string[] GetArray(string Words, int count)
+        static string[] GetArray(string Words, int count) // получения массива строковых данных
         {
             Console.WriteLine(Words);
             string[] array = new string[count]; 
             for (int i = 0; i < count; i++)
             {
-                array[i] = Console.ReadLine();
+                array[i] = CheckString();
             }
             return array;
         }
        
 
-        static int CheckNumber()
+        static string CheckString() // ввод и проверка строки
+        {
+            
+            bool tryString;
+            string String = Console.ReadLine();
+            while (string.IsNullOrEmpty(String))
+            {
+                Console.WriteLine("Вы ввели некорретную строку, введите строку ещё раз");
+                String = Console.ReadLine();
+            }
+            return String;
+        }
+        static int CheckNumber() // ввод и проверка числа
         {
             int number;
-            bool tryNumber = int.TryParse(Console.ReadLine(), out number) && (number > 0);
+            bool tryNumber = int.TryParse(Console.ReadLine(), out number) && (number > 0) && (number < 150);
             while (!tryNumber)
             {
                 Console.WriteLine("Вы ввели некорретное число, введите число ещё раз");
-                tryNumber = int.TryParse(Console.ReadLine(), out number) && (number > 0);
+                tryNumber = int.TryParse(Console.ReadLine(), out number) && (number > 0) && (number < 150);
             }
             return number;
 
 
         }
 
-        static void ShowUser((string FirstName, string LastName, int Age, string[] PetsName, string[] FavColors) User)
+        static void ShowUser((string FirstName, string LastName, int Age, string[] PetsName, string[] FavColors) User) // отображение данных пользователя
         {
             Console.WriteLine($"Имя пользователя: {User.Item1}");
             Console.WriteLine($"Фамилия пользователя: {User.Item2}");
-            Console.WriteLine($"Возраст пользователя: {User.Item2}");
+            Console.WriteLine($"Возраст пользователя: {User.Item3}");
             if (User.PetsName.Length > 0)
             {
                 Console.WriteLine("У пользователя есть домашние животные, их клички:");
@@ -78,12 +91,7 @@ namespace HoweWork_5
                     Console.WriteLine($"{i + 1}. {User.PetsName[i]}");
                 }
             }
-            else
-            {
-                {
-                    Console.WriteLine("У пользователя нет домашних животных");
-                }
-            }
+            else Console.WriteLine("У пользователя нет домашних животных");
 
             Console.WriteLine("Любимые цвета пользователя:");
             for (int i = 0; i < User.FavColors.Length; i++)
