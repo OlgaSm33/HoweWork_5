@@ -12,8 +12,8 @@ namespace HoweWork_5
 
         static (string FirstName, string LastName, int Age, string[] PetsName, string[] FavColors) GetUser()
         {
-            var User = (FirstName: "", LastName : "",
-            Age : 0, PetsName : new string[0], FavColors : new string[0]);
+            var User = (FirstName: "", LastName: "",
+            Age: 0, PetsName: new string[0], FavColors: new string[0]);
 
             Console.Write("Введите Ваше имя: ");
             User.FirstName = Console.ReadLine();
@@ -25,15 +25,10 @@ namespace HoweWork_5
             bool HasPet;
             int PetCount;
             if (Console.ReadLine() == "Да")
-                HasPet = true;
-            else
-                HasPet = false;
-            if (HasPet)
-            {
+            {                 
                 Console.WriteLine("Введите количество Ваших питомцев");
                 PetCount = CheckNumber();
                 User.PetsName = GetArray("Введите клички всех Ваших питомцев", PetCount);
-                
             }
 
             int FavColorsCount;
