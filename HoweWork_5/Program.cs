@@ -1,4 +1,6 @@
-﻿namespace HoweWork_5
+﻿using System.Runtime.InteropServices;
+
+namespace HoweWork_5
 {
     class Program
     {
@@ -30,38 +32,29 @@
             {
                 Console.WriteLine("Введите количество Ваших питомцев");
                 PetCount = CheckNumber();
-                User.PetsName = PetName(PetCount);
+                User.PetsName = GetArray("Введите клички всех Ваших питомцев", PetCount);
                 
             }
 
             int FavColorsCount;
             Console.WriteLine("Введите количество Ваших любимых цветов");
             FavColorsCount = CheckNumber();
-            User.FavColors = FavColor(FavColorsCount);
+            User.FavColors = GetArray("Введите все Ваши любимые цвета", FavColorsCount);
             return User;
         }
 
-        static string[] PetName(int PetCount)
-        {
-            Console.WriteLine("Введите клички всех Ваших питомцев");
-            string[] PetsName = new string[PetCount];
-            for (int i = 0; i < PetCount; i++)
-            {
-                PetsName[i] = Console.ReadLine();
-            }
-            return PetsName;
-        }
 
-        static string[] FavColor(int FavColorsCount)
+        static string[] GetArray(string Words, int count)
         {
-            Console.WriteLine("Введите все Ваши любимые цвета");
-            string[] FavColor = new string[FavColorsCount];
-            for (int i = 0; i < FavColorsCount; i++)
+            Console.WriteLine(Words);
+            string[] array = new string[count]; 
+            for (int i = 0; i < count; i++)
             {
-                FavColor[i] = Console.ReadLine();
+                array[i] = Console.ReadLine();
             }
-            return FavColor;
+            return array;
         }
+       
 
         static int CheckNumber()
         {
